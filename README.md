@@ -19,13 +19,13 @@ This mod runs using BepInEx, a mod manager for Unity games that allows multiple 
 
 If you already have BepInEx v5 installed, skip this section.
 * Head to the [BepInEx v5.4.21 release page](https://github.com/BepInEx/BepInEx/releases/tag/v5.4.21) and download `BepInEx_x64_5.4.21.0.zip`
-* Extract the contents of this zip to your game's root directory. If you've installed the game through Steam, this is usually `C:\Program Files (x86)\Steam\steamapps\common\Unsighted`
+* Extract the contents of this zip __in place__ to your game's root directory. If you've installed the game through Steam, this is usually `C:\Program Files (x86)\Steam\steamapps\common\Unsighted`. If unzipping creates a folder with the same name as the `.zip` file, move the contents of this folder (should just be a `BepInEx` folder) into the game's root directory
 * Restart your computer
 * Run the game once to generate configuration files. You'll know this has succeeded if the `BepInEx/plugins` folder exists in your game's directory
 
 ### Mods
 
-From here on, all mods can be installed by downloading them from the links provided and extracting them into your game's root directory.
+From here on, all mods can be installed by downloading them from the links provided and extracting them __in place__ into your game's root directory.
 
 #### Required
 
