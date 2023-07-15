@@ -29,7 +29,7 @@ From here on, all mods can be installed by downloading them from the links provi
 
 The following mods are required for Unsighted Practice to work smoothly:
 
-* [Unsighted Practice](https://github.com/TheG-Meister/unsighted-practice/releases/tag/v0.1.0) `Unsighted-Practice-v0.1.0.zip` - this mod
+* [Unsighted Practice](https://github.com/TheG-Meister/unsighted-practice/releases/tag/v0.1.0) `unsighted-practice-v0.1.0.zip` - this mod
 * [ConfigurationManager](https://github.com/BepInEx/BepInEx.ConfigurationManager/releases/tag/v18.0.1) `BepInEx.ConfigurationManager_v18.0.1.zip` - used to change mod options during gameplay
 
 #### Optional
@@ -37,7 +37,8 @@ The following mods are required for Unsighted Practice to work smoothly:
 The following mods aren't required, but may add some additional quality-of-life and even time-saving features to your modded gameplay:
 
 * [UNSIGHTED++](https://github.com/Vheos/Mods.UNSIGHTED/releases/tag/v1.6.0) `UNSIGHTED++_v1.6.0_SteamGOG.zip` - allows the game's intros to be skipped. May conflict with some of the changes in here, it hasn't actually been tested
-* [Graphics Settings](https://github.com/BepInEx/BepInEx.GraphicsSettings/releases/tag/v1.3) `BepInEx.GraphicsSettings_v1.3.zip` - a plugin for any Unity game that allows it to run in the background
+* [Graphics Settings](https://github.com/BepInEx/BepInEx.GraphicsSettings/releases/tag/v1.3) `BepInEx.GraphicsSettings_v1.3.zip` - a mod for any Unity game that allows it to run in the background
+* [Unity Explorer](https://github.com/sinai-dev/UnityExplorer/releases/tag/4.9.0) `UnityExplorer.BepInEx5.Mono.zip` - a real-time Unity object inspector that allows you to modify game values as long as you understand the game's code
 
 ## How to Use
 
