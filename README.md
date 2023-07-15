@@ -5,8 +5,6 @@ Unsighted Practice is a mod for 2021 indie metroidvania UNSIGHTED that provides 
 * 10 primitive save states that store all player data that is saved to the system, as well as some level data
 * Hotkeys for resetting combo, reloading the current room and teleporting to the last terminal
 
-* a
-
 ## Installation
 
 This setup guide is for v0.1.0.
