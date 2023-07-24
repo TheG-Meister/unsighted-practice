@@ -68,6 +68,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cheats\Debug.cs" />
     <Compile Include="cheats\InfiniteCogs.cs" />
     <Compile Include="cheats\InfiniteFishing.cs" />
     <Compile Include="cheats\QuickIO.cs" />

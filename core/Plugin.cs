@@ -34,6 +34,8 @@ public class Plugin : BaseUnityPlugin
 
         this.quickIO = new QuickIO(10);
 
+        cheats.Debug.SetDebug(true);
+
         this.harmony = new Harmony(PLUGIN_GUID);
         this.harmony.PatchAll(Assembly.GetExecutingAssembly());
     }
