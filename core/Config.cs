@@ -15,6 +15,7 @@ public class Config
     public const string CATEGORY_CHEATS = "Cheats";
     public ConfigEntry<bool> infiniteCogs;
     public ConfigEntry<bool> infiniteFishing;
+    public ConfigEntry<bool> debugMode;
 
     public const string CATEGORY_COMBO = "Combo";
     public ConfigEntry<KeyCode> resetComboButton;
@@ -33,6 +34,8 @@ public class Config
     {
         this.infiniteCogs = config.Bind(CATEGORY_CHEATS, "Infinite cogs", false, "Prevents cogs from decreasing in use or timing out");
         this.infiniteFishing = config.Bind(CATEGORY_CHEATS, "Infinite fishing", false, "Prevents fishing spots from being consumed");
+        this.debugMode = config.Bind(CATEGORY_CHEATS, "Debug mode", false, "Enables debug mode, which allows starting the game from different areas as well as an in-game cheats menu, accessible from the options pace");
+
         this.resetComboButton = config.Bind(CATEGORY_COMBO, "Reset combo button", KeyCode.None, "Use this input to reset the combo bar to a 1x modifier");
 
         this.saveModifier = config.Bind(CATEGORY_STATES, "Save state modifier", KeyCode.LeftControl, "Hold this modifier and press a save state button to save the current game to this state");
