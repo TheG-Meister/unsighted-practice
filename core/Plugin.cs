@@ -66,7 +66,7 @@ public class Plugin : BaseUnityPlugin
 
         if (Input.GetKeyDown(this.config.loadStateKey.Value))
         {
-            if (this.states.Exists(this.config.stateToLoad.Value)) this.states.ReadAndLoad(this.config.stateToLoad.Value);
+            if (this.states.Exists(this.config.selectedState.Value)) this.states.ReadAndLoad(this.config.selectedState.Value);
         }
 
     }

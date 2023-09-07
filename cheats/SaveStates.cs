@@ -53,4 +53,10 @@ public class SaveStates
         State.ReadAndLoad(this.GetLocalPath(name));
     }
 
+    public void Delete(string name)
+    {
+        if (!File.Exists(this.GetLocalPath(name))) throw new ArgumentException($"The state {name} does not exist");
+        File.Delete(this.GetLocalPath(name));
+    }
+
 }
