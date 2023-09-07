@@ -12,6 +12,7 @@ public class Constants
     public const string PLUGIN_GUID = "dev.gmeister.unsighted.practice";
     public const string PLUGIN_VERSION = "0.1.0";
 
-    public const string STATE_PATH = "unsighted-practice/states/";
+    public const string QUICKSAVES_PATH = "unsighted-practice/quicksaves/";
+    public const string SAVE_STATES_PATH = "unsighted-practice/states/";
 
 }

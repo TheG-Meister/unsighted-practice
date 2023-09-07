@@ -71,10 +71,12 @@
     <Compile Include="cheats\Debug.cs" />
     <Compile Include="cheats\InfiniteCogs.cs" />
     <Compile Include="cheats\InfiniteFishing.cs" />
-    <Compile Include="cheats\QuickIO.cs" />
+    <Compile Include="cheats\QuickSaves.cs" />
     <Compile Include="cheats\ReenterScene.cs" />
     <Compile Include="cheats\ResetCombo.cs" />
+    <Compile Include="cheats\SaveStates.cs" />
     <Compile Include="core\Config.cs" />
+    <Compile Include="core\ConfigurationManagerAttributes.cs" />
     <Compile Include="core\Constants.cs" />
     <Compile Include="core\Plugin.cs" />
     <Compile Include="data\SerializableAcidTubeInfo.cs" />
@@ -100,6 +102,9 @@
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\unsighted-randomeister\libraries\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>..\..\unsighted-randomeister\plugin\libraries\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>..\unsighted-randomeister\libraries\UnityEngine.UI.dll</HintPath>

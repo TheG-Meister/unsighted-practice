@@ -55,6 +55,41 @@ public class State
         return state;
     }
 
+    public static void Load(State state)
+    {
+        GlobalGameData data = PseudoSingleton<GlobalGameData>.instance;
+        State stateClone = State.DeepClone(state);
+
+        data.currentData.playerDataSlots[data.loadedSlot] = stateClone.data;
+
+        LevelController.acidTubesInfo = stateClone.acidTubesInfo.Select(info => info.ToAcidTubeInfo()).ToList();
+        LevelController.deceasedEnemiesInfo = stateClone.deceasedEnemiesInfo;
+        LevelController.dropInfo = stateClone.dropInfo.Select(info => info.ToDropInfo()).ToList();
+    }
+
+    public static void Write(string path, State state)
+    {
+        string dir = Path.GetDirectoryName(path);
+        if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+
+        Serializer.Save(path, state);
+    }
+
+    public static State Read(string path)
+    {
+        return Serializer.Load<State>(path);
+    }
+
+    public static void CreateAndWrite(string path)
+    {
+        State.Write(path, State.Create());
+    }
+
+    public static void ReadAndLoad(string path)
+    {
+        State.Load(State.Read(path));
+    }
+
     public static T DeepClone<T>(T obj) where T : class
     {
         using (MemoryStream stream = new MemoryStream())

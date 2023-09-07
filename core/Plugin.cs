@@ -21,7 +21,8 @@ public class Plugin : BaseUnityPlugin
     public Harmony harmony;
 
     public ResetCombo resetCombo;
-    public QuickIO quickIO;
+    public QuickSaves quickSaves;
+    public SaveStates states;
 
     public static Plugin Instance { get; private set; }
 
@@ -30,9 +31,11 @@ public class Plugin : BaseUnityPlugin
         if (Plugin.Instance != null) throw new InvalidOperationException("An instance of Plugin already exists");
         Plugin.Instance = this;
 
-        this.config = new Config(this.Config);
+        this.states = new(SAVE_STATES_PATH);
 
-        this.quickIO = new QuickIO(10);
+        this.config = new(this.Config, this.states);
+
+        this.quickSaves = new(10);
 
         if (this.config.debugMode.Value) cheats.Debug.SetDebug(true);
         this.config.debugMode.SettingChanged += (o, v) => cheats.Debug.SetDebug(this.config.debugMode.Value);
@@ -45,21 +48,27 @@ public class Plugin : BaseUnityPlugin
     {
         if (this.resetCombo != null)
         {
-            if (Input.GetKeyDown(this.config.resetComboButton.Value)) this.resetCombo.RemoveAllCombo();
+            if (Input.GetKeyDown(this.config.resetComboKey.Value)) this.resetCombo.RemoveAllCombo();
         }
 
         bool save = this.config.saveModifier.Value == KeyCode.None || Input.GetKey(this.config.saveModifier.Value);
         bool load = this.config.loadModifier.Value == KeyCode.None || Input.GetKey(this.config.loadModifier.Value);
 
-        for (int i = 0; i < this.config.slotsButtons.Count; i++)
+        for (int i = 0; i < this.config.slotKeys.Count; i++)
         {
-            ConfigEntry<KeyCode> stateButton = this.config.slotsButtons[i];
-            if (save && Input.GetKeyDown(stateButton.Value)) this.quickIO.QuickSave(i);
-            if (load && Input.GetKeyDown(stateButton.Value)) this.quickIO.QuickLoad(i);
+            ConfigEntry<KeyCode> stateButton = this.config.slotKeys[i];
+            if (save && Input.GetKeyDown(stateButton.Value)) this.quickSaves.QuickSave(i);
+            if (load && Input.GetKeyDown(stateButton.Value)) this.quickSaves.QuickLoad(i);
         }
 
         if (Input.GetKeyDown(this.config.teleportToTerminal.Value)) ReenterScene.Respawn(!this.config.quickReload.Value);
         if (Input.GetKeyDown(this.config.reloadRoom.Value)) ReenterScene.Reenter(!this.config.quickReload.Value);
+
+        if (Input.GetKeyDown(this.config.loadStateKey.Value))
+        {
+            if (this.states.Exists(this.config.stateToLoad.Value)) this.states.ReadAndLoad(this.config.stateToLoad.Value);
+        }
+
     }
 
 }
