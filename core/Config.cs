@@ -65,23 +65,23 @@ public class Config
             slotKeys.Add(config.Bind(CATEGORY_QUICKSAVE_LOAD, $"Slot {i + 1} key", KeyCode.None, $"The button to press to interact with save state {i}"));
         }
 
-        this.saveStateName = config.Bind(CATEGORY_SAVE_STATES, "New state name", "state", new ConfigDescription("The name of a new save state. If a state with this name already exists, it will be overwritten when saved to.", null, new ConfigurationManagerAttributes { Order = -1 }));
-        this.saveNewState = config.Bind(CATEGORY_SAVE_STATES, "Create new state", false, new ConfigDescription("Save the current game state to a file. You may need to close and reopen the Configuration Manager window for new states to show up in the load menu.", null, new ConfigurationManagerAttributes { Order = -2, CustomDrawer = Config.CreateButtonDrawer("Create", (entry) => {
+        this.saveStateName = config.Bind(CATEGORY_SAVE_STATES, "New state name", "state", new ConfigDescription("The name of a new save state. If a state with this name already exists, it will be overwritten when saved to.", null, new ConfigurationManagerAttributes { Order = -6 }));
+        this.saveNewState = config.Bind(CATEGORY_SAVE_STATES, "Create new state", false, new ConfigDescription("Save the current game state to a file. You may need to close and reopen the Configuration Manager window for new states to show up in the load menu.", null, new ConfigurationManagerAttributes { Order = -7, CustomDrawer = Config.CreateButtonDrawer("Create", (entry) => {
             this.states.CreateAndWrite(this.saveStateName.Value);
             this.UpdateStatesList();
         }) }));
         this.UpdateStatesList();
 
-        this.loadState = config.Bind(CATEGORY_SAVE_STATES, "Load", false, new ConfigDescription("Load the selected save state.", null, new ConfigurationManagerAttributes { Order = -4, CustomDrawer = Config.CreateButtonDrawer("Load", (entry) => {
+        this.loadState = config.Bind(CATEGORY_SAVE_STATES, "Load", false, new ConfigDescription("Load the selected save state.", null, new ConfigurationManagerAttributes { Order = -2, CustomDrawer = Config.CreateButtonDrawer("Load", (entry) => {
             if (this.states.Exists(this.selectedState.Value)) this.states.ReadAndLoad(this.selectedState.Value);
         }) }));
 
-        this.saveState = config.Bind(CATEGORY_SAVE_STATES, "Save", false, new ConfigDescription("Save the current game state to the selected save state.", null, new ConfigurationManagerAttributes { Order = -5, CustomDrawer = Config.CreateButtonDrawer("Save", (entry) => {
+        this.saveState = config.Bind(CATEGORY_SAVE_STATES, "Save", false, new ConfigDescription("Save the current game state to the selected save state.", null, new ConfigurationManagerAttributes { Order = -3, CustomDrawer = Config.CreateButtonDrawer("Save", (entry) => {
             this.states.CreateAndWrite(this.selectedState.Value);
             this.UpdateStatesList();
         }) }));
 
-        this.deleteState = config.Bind(CATEGORY_SAVE_STATES, "Delete", false, new ConfigDescription("Delete the selected state. You may have to reopen the Configuration Manager window in order for the state to disappear from the list.", null, new ConfigurationManagerAttributes { Order = -6, CustomDrawer = Config.CreateButtonDrawer("Delete", (entry) => {
+        this.deleteState = config.Bind(CATEGORY_SAVE_STATES, "Delete", false, new ConfigDescription("Delete the selected state. You may have to reopen the Configuration Manager window in order for the state to disappear from the list.", null, new ConfigurationManagerAttributes { Order = -4, CustomDrawer = Config.CreateButtonDrawer("Delete", (entry) => {
             if (this.states.Exists(this.selectedState.Value))
             {
                 this.states.Delete(this.selectedState.Value);
@@ -89,7 +89,7 @@ public class Config
             }
         }) }));
 
-        this.loadStateKey = config.Bind(CATEGORY_SAVE_STATES, "Load state key", KeyCode.None, new ConfigDescription("The key to press to load the selected state", null, new ConfigurationManagerAttributes { Order = -7 }));
+        this.loadStateKey = config.Bind(CATEGORY_SAVE_STATES, "Load state key", KeyCode.None, new ConfigDescription("The key to press to load the selected state", null, new ConfigurationManagerAttributes { Order = -5 }));
 
         this.teleportToTerminal = config.Bind(CATEGORY_LOCATION, "Teleport to last terminal", KeyCode.None, "Use this input to teleport the player to their last terminal or checkpoint");
         this.reloadRoom = config.Bind(CATEGORY_LOCATION, "Reload current room", KeyCode.None, "Use this input to reload the current room. Works well with the current save states");
@@ -113,7 +113,7 @@ public class Config
 
         List<string> states = this.states.GetAllStates();
         if (states.Count < 1) states.Add(string.Empty);
-        this.selectedState = this.config.Bind(CATEGORY_SAVE_STATES, "Current state", string.Empty, new ConfigDescription("Select a state", new AcceptableValueList<string>(states.ToArray()), new ConfigurationManagerAttributes { Order = -3 }));
+        this.selectedState = this.config.Bind(CATEGORY_SAVE_STATES, "Current state", string.Empty, new ConfigDescription("Select a state", new AcceptableValueList<string>(states.ToArray()), new ConfigurationManagerAttributes { Order = -1 }));
     }
 
 }

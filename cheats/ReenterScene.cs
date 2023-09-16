@@ -1,10 +1,12 @@
-﻿using HarmonyLib;
+﻿using dev.gmeister.unsighted.practice.core;
+using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace dev.gmeister.unsighted.practice.cheats;
@@ -40,7 +42,7 @@ public class ReenterScene
             if (ScreenTransition.lastSceneName == null) ReenterScene.Respawn(transition);
             else
             {
-                if (ReenterScene.lastTransitionType != null) PlayerInfo.cutscene = true;
+                PlayerInfo.cutscene = true;
 
                 if (ReenterScene.lastTransitionType == typeof(SceneChangeLadder)) SceneChangeLadder.currentLadder = ReenterScene.lastLadder;
                 else if (ReenterScene.lastTransitionType == typeof(CraterTowerElevator)) CraterTowerElevator.currentElevator = ReenterScene.lastCraterTowerElevator;
