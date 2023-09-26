@@ -1,8 +1,15 @@
 # UNSIGHTED Practice Mod
 Unsighted Practice is a mod for 2021 indie metroidvania UNSIGHTED that provides cheats and tools to help speedrunners, glitch hunters and even casual players practice parts of the game. Features currently include:
 * A bountiful settings menu with key rebinding and toggles for all features, courtesy of [ConfigurationManager](https://github.com/BepInEx/BepInEx.ConfigurationManager)
-* Cheats that prevent cog depletion and fish-spot despawning
-* 10 primitive save states that store all player data that is saved to the system, as well as some level data
+* A variety of cheats
+    * Prevent cog depletion
+    * Stop fishing spots being used up
+    * Enable the in-built debug menu for even more cheats
+* A primitive save state system
+    * Save states record all data saved to the system, as well as some level data, but not player location
+    * All states are saved as a file on your computer, so they persist between game sessions and can be shared with other players
+    * Named states can be saved and loaded via a menu
+    * Quicksaves can be saved and loaded using hotkeys
 * Hotkeys for resetting combo, reloading the current room and teleporting to the last terminal
 
 ## Installation
@@ -47,7 +54,8 @@ The following mods aren't required, but may add some additional quality-of-life 
 * Hover over a setting to display a tooltip for what it does (if one is provided)
 * In the Unsighted Practice menu, enable and disable any options you please
 * Most hotkeys start unbound. To bind one, click the `Set` button, and press a button on your keyboard. This may also work with controller
-* To use save states, hold the `Save` modifier and press the state key to save the current game state. This will also be written to a file in your game's install directory. To load it again, hold the `Load` modifier and press the state key. To see the effects of this load, you may have to transition screens, or use the `Reload current room` or `Teleport to last terminal` hotkey
+* To use quicksaves, hold the `Save` modifier and press the state key to save the current game state. This will also be written to a file in your game's install directory. To load it again, hold the `Load` modifier and press the state key. Note: some of the effects of loading a state can only be seen by entering a different screen. This can be done by moving in-game or by using the `Reload current room` or `Teleport to last terminal` hotkey
+* Named save states can only be used with the ConfigurationManager mod installed. To create one, type a name for your state in the `New state name` field and press the `Create` button. Closing and reopening the ConfigurationManager window will make your state appear in the `Current state` dropdown list. Selecting a state in this list allows you to load it with the `Load` button or the key assigned to `Load state key`, overwrite it with the `Save` button, or delete it with the `Delete` button
 
 ## Contact
 
