@@ -4,6 +4,7 @@ using dev.gmeister.unsighted.practice.cheats;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -30,6 +31,8 @@ public class Plugin : BaseUnityPlugin
     {
         if (Plugin.Instance != null) throw new InvalidOperationException("An instance of Plugin already exists");
         Plugin.Instance = this;
+
+        this.CheckForVersionChange();
 
         this.states = new(SAVE_STATES_PATH);
 
@@ -71,4 +74,12 @@ public class Plugin : BaseUnityPlugin
 
     }
 
+    public void CheckForVersionChange()
+    {
+        if (Directory.Exists(SAVE_STATES_PATH) && !Directory.Exists(QUICKSAVES_PATH))
+        {
+            Directory.Move(SAVE_STATES_PATH, QUICKSAVES_PATH);
+            Directory.CreateDirectory(SAVE_STATES_PATH);
+        }
+    }
 }
