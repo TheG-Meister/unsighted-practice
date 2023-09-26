@@ -36,7 +36,7 @@ From here on, all mods can be installed by downloading them from the links provi
 
 The following mods are required for Unsighted Practice to work smoothly:
 
-* [Unsighted Practice](https://github.com/TheG-Meister/unsighted-practice/releases/tag/v0.1.0) `unsighted-practice-v0.2.0.zip` - this mod
+* [Unsighted Practice](https://github.com/TheG-Meister/unsighted-practice/releases/tag/v0.2.0) `unsighted-practice-v0.2.0.zip` - this mod
 * [ConfigurationManager](https://github.com/BepInEx/BepInEx.ConfigurationManager/releases/tag/v18.0.1) `BepInEx.ConfigurationManager_v18.0.1.zip` - used to change mod options during gameplay
 
 #### Optional
