@@ -23,6 +23,7 @@ public class ReenterScene
     {
         if (!PlayerInfo.cutscene && PlayerInfo.AtLeastOnePlayerAlive() && !gameTime.paused)
         {
+            PlayerInfo.cutscene = true;
             LevelController.restartingPlayer = true;
             if (PseudoSingleton<GlobalGameData>.instance.currentData.playerDataSlots[PseudoSingleton<GlobalGameData>.instance.loadedSlot].lastTerminalData == null || string.IsNullOrEmpty(PseudoSingleton<Helpers>.instance.GetPlayerData().lastTerminalData.sceneName))
             {
