@@ -14,5 +14,4 @@ public class Constants
 
     public const string QUICKSAVES_PATH = "unsighted-practice/quicksaves/";
     public const string SAVE_STATES_PATH = "unsighted-practice/states/";
-
 }
