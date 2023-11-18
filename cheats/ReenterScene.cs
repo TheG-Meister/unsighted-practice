@@ -50,6 +50,7 @@ public class ReenterScene
                 else if (ReenterScene.lastTransitionType == typeof(ScreenTransition)) ScreenTransition.playerTransitioningScreens = true;
                 else if (ReenterScene.lastTransitionType == typeof(HoleTeleporter)) HoleTeleporter.fallingDownOnHole = true;
                 else if (ReenterScene.lastTransitionType == typeof(Elevator)) Elevator.ridingElevator = true;
+                else if (ReenterScene.lastTransitionType == typeof(CrystalTeleportExit)) CrystalTeleportExit.usingCrystalTeleport = true;
 
                 MapManager mapManager = PseudoSingleton<MapManager>.instance;
                 mapManager.LoadRoom(SceneManager.GetActiveScene().name, transition);
@@ -66,6 +67,7 @@ public class ReenterScene
         if (ScreenTransition.playerTransitioningScreens) ReenterScene.lastTransitionType = typeof(ScreenTransition);
         else if (HoleTeleporter.fallingDownOnHole) ReenterScene.lastTransitionType = typeof(HoleTeleporter);
         else if (Elevator.ridingElevator) ReenterScene.lastTransitionType = typeof(Elevator);
+        else if (CrystalTeleportExit.usingCrystalTeleport) ReenterScene.lastTransitionType = typeof(CrystalTeleportExit);
         else ReenterScene.lastTransitionType = null;
     }
 
