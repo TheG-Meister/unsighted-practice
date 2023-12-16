@@ -24,6 +24,7 @@ public class Plugin : BaseUnityPlugin
     public ResetCombo resetCombo;
     public QuickSaves quickSaves;
     public SaveStates states;
+    public TimeCheat timeCheat;
 
     public static Plugin Instance { get; private set; }
 
@@ -39,6 +40,7 @@ public class Plugin : BaseUnityPlugin
         this.config = new(this.Config, this.states);
 
         this.quickSaves = new(10);
+        this.timeCheat = new();
 
         if (this.config.debugMode.Value) cheats.Debug.SetDebug(true);
         this.config.debugMode.SettingChanged += (o, v) => cheats.Debug.SetDebug(this.config.debugMode.Value);
@@ -49,6 +51,10 @@ public class Plugin : BaseUnityPlugin
 
     public void Update()
     {
+        if (Input.GetKeyDown(this.config.pauseKey.Value)) this.timeCheat.Toggle();
+        if (Input.GetKeyDown(this.config.frameAdvanceKey.Value)) this.timeCheat.updates++;
+        this.timeCheat.Apply();
+
         if (this.resetCombo != null)
         {
             if (Input.GetKeyDown(this.config.resetComboKey.Value)) this.resetCombo.RemoveAllCombo();

@@ -75,6 +75,7 @@
     <Compile Include="cheats\ReenterScene.cs" />
     <Compile Include="cheats\ResetCombo.cs" />
     <Compile Include="cheats\SaveStates.cs" />
+    <Compile Include="cheats\TimeCheat.cs" />
     <Compile Include="core\Config.cs" />
     <Compile Include="core\ConfigurationManagerAttributes.cs" />
     <Compile Include="core\Constants.cs" />

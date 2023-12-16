@@ -46,6 +46,10 @@ public class Config
     public ConfigEntry<KeyCode> reloadRoom;
     public ConfigEntry<bool> quickReload;
 
+    public const string CATEGORY_TIME = "Time";
+    public ConfigEntry<KeyCode> pauseKey;
+    public ConfigEntry<KeyCode> frameAdvanceKey;
+
     public Config(ConfigFile config, SaveStates states)
     {
         this.config = config;
@@ -94,6 +98,9 @@ public class Config
         this.teleportToTerminal = config.Bind(CATEGORY_LOCATION, "Teleport to last terminal", KeyCode.None, "Use this input to teleport the player to their last terminal or checkpoint");
         this.reloadRoom = config.Bind(CATEGORY_LOCATION, "Reload current room", KeyCode.None, "Use this input to reload the current room. Works well with the current save states");
         this.quickReload = config.Bind(CATEGORY_LOCATION, "Faster scene reload", false, "Enables a faster reload that drops inputs and looks visually glitchy");
+
+        this.pauseKey = config.Bind(CATEGORY_TIME, "01 Pause Key", KeyCode.None, "Pressing this key will pause the unity timer, thereby pausing a majority of in-game functions");
+        this.frameAdvanceKey = config.Bind(CATEGORY_TIME, "02 Update Advance Key", KeyCode.None, "Pressing this key while the paused unpauses the unity timer for one update, acting like an effective frame-advance");
     }
 
     public static Action<ConfigEntryBase> CreateButtonDrawer(string text, Action<ConfigEntryBase> onPress)
