@@ -68,6 +68,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cheats\DataStrings.cs" />
     <Compile Include="cheats\Debug.cs" />
     <Compile Include="cheats\InfiniteCogs.cs" />
     <Compile Include="cheats\InfiniteFishing.cs" />
@@ -80,6 +81,8 @@
     <Compile Include="core\ConfigurationManagerAttributes.cs" />
     <Compile Include="core\Constants.cs" />
     <Compile Include="core\Plugin.cs" />
+    <Compile Include="data\SceneLocationData.cs" />
+    <Compile Include="data\SceneChangeData.cs" />
     <Compile Include="data\SerializableAcidTubeInfo.cs" />
     <Compile Include="data\SerializableDropInfo.cs" />
     <Compile Include="unsighted\DeceasedEnemyInfos.cs" />

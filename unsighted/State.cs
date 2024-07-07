@@ -20,6 +20,7 @@ public class State
     public List<SerializableAcidTubeInfo> acidTubesInfo;
     public List<DeceasedEnemyInfo> deceasedEnemiesInfo;
     public List<SerializableDropInfo> dropInfo;
+    public SceneLocationData sceneEntryData;
 
     public State() { }
 
@@ -92,17 +93,15 @@ public class State
 
     public static T DeepClone<T>(T obj) where T : class
     {
-        using (MemoryStream stream = new MemoryStream())
-        {
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            SurrogateSelector surrogateSelector = new SurrogateSelector();
-            surrogateSelector.AddSurrogate(typeof(Vector2), new StreamingContext(StreamingContextStates.All), new Vector2Serializer());
-            surrogateSelector.AddSurrogate(typeof(Vector3), new StreamingContext(StreamingContextStates.All), new Vector3Serializer());
-            binaryFormatter.SurrogateSelector = surrogateSelector;
-            binaryFormatter.Serialize(stream, obj);
-            stream.Position = 0;
-            return (T)binaryFormatter.Deserialize(stream);
-        }
+        using MemoryStream stream = new MemoryStream();
+        BinaryFormatter binaryFormatter = new BinaryFormatter();
+        SurrogateSelector surrogateSelector = new SurrogateSelector();
+        surrogateSelector.AddSurrogate(typeof(Vector2), new StreamingContext(StreamingContextStates.All), new Vector2Serializer());
+        surrogateSelector.AddSurrogate(typeof(Vector3), new StreamingContext(StreamingContextStates.All), new Vector3Serializer());
+        binaryFormatter.SurrogateSelector = surrogateSelector;
+        binaryFormatter.Serialize(stream, obj);
+        stream.Position = 0;
+        return (T)binaryFormatter.Deserialize(stream);
     }
 
 }

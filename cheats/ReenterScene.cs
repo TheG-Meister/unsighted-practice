@@ -1,4 +1,5 @@
 ﻿using dev.gmeister.unsighted.practice.core;
+using dev.gmeister.unsighted.practice.data;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,7 @@ namespace dev.gmeister.unsighted.practice.cheats;
 public class ReenterScene
 {
 
-    public static Type lastTransitionType = null;
-    public static string lastLadder = null;
-    public static string lastCraterTowerElevator = null;
+    public static SceneChangeData sceneChangeData = null;
 
     public static void Respawn(bool transition)
     {
@@ -45,12 +44,12 @@ public class ReenterScene
             {
                 PlayerInfo.cutscene = true;
 
-                if (ReenterScene.lastTransitionType == typeof(SceneChangeLadder)) SceneChangeLadder.currentLadder = ReenterScene.lastLadder;
-                else if (ReenterScene.lastTransitionType == typeof(CraterTowerElevator)) CraterTowerElevator.currentElevator = ReenterScene.lastCraterTowerElevator;
-                else if (ReenterScene.lastTransitionType == typeof(ScreenTransition)) ScreenTransition.playerTransitioningScreens = true;
-                else if (ReenterScene.lastTransitionType == typeof(HoleTeleporter)) HoleTeleporter.fallingDownOnHole = true;
-                else if (ReenterScene.lastTransitionType == typeof(Elevator)) Elevator.ridingElevator = true;
-                else if (ReenterScene.lastTransitionType == typeof(CrystalTeleportExit)) CrystalTeleportExit.usingCrystalTeleport = true;
+                if (sceneChangeData.transitionType == typeof(SceneChangeLadder)) SceneChangeLadder.currentLadder = sceneChangeData.transitionObject;
+                else if (sceneChangeData.transitionType == typeof(CraterTowerElevator)) CraterTowerElevator.currentElevator = sceneChangeData.transitionObject;
+                else if (sceneChangeData.transitionType == typeof(ScreenTransition)) ScreenTransition.playerTransitioningScreens = true;
+                else if (sceneChangeData.transitionType == typeof(HoleTeleporter)) HoleTeleporter.fallingDownOnHole = true;
+                else if (sceneChangeData.transitionType == typeof(Elevator)) Elevator.ridingElevator = true;
+                else if (sceneChangeData.transitionType == typeof(CrystalTeleportExit)) CrystalTeleportExit.usingCrystalTeleport = true;
 
                 MapManager mapManager = PseudoSingleton<MapManager>.instance;
                 mapManager.LoadRoom(SceneManager.GetActiveScene().name, transition);
@@ -59,32 +58,30 @@ public class ReenterScene
     }
 
     [HarmonyPatch(typeof(MapManager), nameof(MapManager.LoadPlayerRoom)), HarmonyPrefix]
-    public static void RecordLastTransitionTypeMapManager()
+    public static void RecordLastTransitionTypeMapManager(string nextSceneName)
     {
-        ReenterScene.lastLadder = null;
-        ReenterScene.lastCraterTowerElevator = null;
+        string scene = nextSceneName;
 
-        if (ScreenTransition.playerTransitioningScreens) ReenterScene.lastTransitionType = typeof(ScreenTransition);
-        else if (HoleTeleporter.fallingDownOnHole) ReenterScene.lastTransitionType = typeof(HoleTeleporter);
-        else if (Elevator.ridingElevator) ReenterScene.lastTransitionType = typeof(Elevator);
-        else if (CrystalTeleportExit.usingCrystalTeleport) ReenterScene.lastTransitionType = typeof(CrystalTeleportExit);
-        else ReenterScene.lastTransitionType = null;
+        if (ScreenTransition.playerTransitioningScreens) sceneChangeData = new(scene, typeof(ScreenTransition), ScreenTransition.currentDoorName, ScreenTransition.lastSceneName);
+        else if (HoleTeleporter.fallingDownOnHole) sceneChangeData = new(scene, typeof(HoleTeleporter));
+        else if (Elevator.ridingElevator) sceneChangeData = new(scene, typeof(Elevator));
+        else if (CrystalTeleportExit.usingCrystalTeleport) sceneChangeData = new(scene, typeof(CrystalTeleportExit));
+        else sceneChangeData = null;
     }
 
     [HarmonyPatch(typeof(SceneManager), "LoadSceneAsyncNameIndexInternal"), HarmonyPrefix]
-    public static void RecordLastTransitionTypeSceneManager()
+    public static void RecordLastTransitionTypeSceneManager(string sceneName)
     {
+        string scene = sceneName;
+
         if (!string.IsNullOrEmpty(SceneChangeLadder.currentLadder))
         {
-            ReenterScene.lastTransitionType = typeof(SceneChangeLadder);
-            ReenterScene.lastLadder = SceneChangeLadder.currentLadder;
+            sceneChangeData = new(scene, typeof(SceneChangeLadder), SceneChangeLadder.currentLadder);
         }
         else if (!string.IsNullOrEmpty(CraterTowerElevator.currentElevator))
         {
-            ReenterScene.lastTransitionType = typeof(CraterTowerElevator);
-            ReenterScene.lastCraterTowerElevator = CraterTowerElevator.currentElevator;
+            sceneChangeData = new(scene, typeof(CraterTowerElevator), CraterTowerElevator.currentElevator);
         }
     }
-
 
 }
