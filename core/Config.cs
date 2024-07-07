@@ -41,6 +41,11 @@ public class Config
     public ConfigEntry<bool> deleteState;
     public ConfigEntry<KeyCode> loadStateKey;
 
+    public const string CATEGORY_GAME_STATES = "Game States";
+    public ConfigEntry<bool> clearDataStrings;
+    public ConfigEntry<bool> iris;
+    public ConfigEntry<bool> prologue;
+
     public const string CATEGORY_LOCATION = "Player Location";
     public ConfigEntry<KeyCode> teleportToTerminal;
     public ConfigEntry<KeyCode> reloadRoom;
@@ -70,30 +75,58 @@ public class Config
         }
 
         this.saveStateName = config.Bind(CATEGORY_SAVE_STATES, "New state name", "state", new ConfigDescription("The name of a new save state. If a state with this name already exists, it will be overwritten when saved to.", null, new ConfigurationManagerAttributes { Order = -6 }));
-        this.saveNewState = config.Bind(CATEGORY_SAVE_STATES, "Create new state", false, new ConfigDescription("Save the current game state to a file. You may need to close and reopen the Configuration Manager window for new states to show up in the load menu.", null, new ConfigurationManagerAttributes { Order = -7, CustomDrawer = Config.CreateButtonDrawer("Create", (entry) => {
-            this.states.CreateAndWrite(this.saveStateName.Value);
-            this.UpdateStatesList();
-        }) }));
+        this.saveNewState = config.Bind(CATEGORY_SAVE_STATES, "Create new state", false, new ConfigDescription("Save the current game state to a file. You may need to close and reopen the Configuration Manager window for new states to show up in the load menu.", null, new ConfigurationManagerAttributes
+        {
+            Order = -7,
+            CustomDrawer = Config.CreateButtonDrawer("Create", (entry) => {
+                this.states.CreateAndWrite(this.saveStateName.Value);
+                this.UpdateStatesList();
+            })
+        }));
         this.UpdateStatesList();
 
-        this.loadState = config.Bind(CATEGORY_SAVE_STATES, "Load", false, new ConfigDescription("Load the selected save state.", null, new ConfigurationManagerAttributes { Order = -2, CustomDrawer = Config.CreateButtonDrawer("Load", (entry) => {
-            if (this.states.Exists(this.selectedState.Value)) this.states.ReadAndLoad(this.selectedState.Value);
-        }) }));
+        this.loadState = config.Bind(CATEGORY_SAVE_STATES, "Load", false, new ConfigDescription("Load the selected save state.", null, new ConfigurationManagerAttributes
+        {
+            Order = -2,
+            CustomDrawer = Config.CreateButtonDrawer("Load", (entry) => {
+                if (this.states.Exists(this.selectedState.Value)) this.states.ReadAndLoad(this.selectedState.Value);
+            })
+        }));
 
-        this.saveState = config.Bind(CATEGORY_SAVE_STATES, "Save", false, new ConfigDescription("Save the current game state to the selected save state.", null, new ConfigurationManagerAttributes { Order = -3, CustomDrawer = Config.CreateButtonDrawer("Save", (entry) => {
-            this.states.CreateAndWrite(this.selectedState.Value);
-            this.UpdateStatesList();
-        }) }));
-
-        this.deleteState = config.Bind(CATEGORY_SAVE_STATES, "Delete", false, new ConfigDescription("Delete the selected state. You may have to reopen the Configuration Manager window in order for the state to disappear from the list.", null, new ConfigurationManagerAttributes { Order = -4, CustomDrawer = Config.CreateButtonDrawer("Delete", (entry) => {
-            if (this.states.Exists(this.selectedState.Value))
-            {
-                this.states.Delete(this.selectedState.Value);
+        this.saveState = config.Bind(CATEGORY_SAVE_STATES, "Save", false, new ConfigDescription("Save the current game state to the selected save state.", null, new ConfigurationManagerAttributes
+        {
+            Order = -3,
+            CustomDrawer = Config.CreateButtonDrawer("Save", (entry) => {
+                this.states.CreateAndWrite(this.selectedState.Value);
                 this.UpdateStatesList();
-            }
-        }) }));
+            })
+        }));
+
+        this.deleteState = config.Bind(CATEGORY_SAVE_STATES, "Delete", false, new ConfigDescription("Delete the selected state. You may have to reopen the Configuration Manager window in order for the state to disappear from the list.", null, new ConfigurationManagerAttributes
+        {
+            Order = -4,
+            CustomDrawer = Config.CreateButtonDrawer("Delete", (entry) => {
+                if (this.states.Exists(this.selectedState.Value))
+                {
+                    this.states.Delete(this.selectedState.Value);
+                    this.UpdateStatesList();
+                }
+            })
+        }));
 
         this.loadStateKey = config.Bind(CATEGORY_SAVE_STATES, "Load state key", KeyCode.None, new ConfigDescription("The key to press to load the selected state", null, new ConfigurationManagerAttributes { Order = -5 }));
+
+        this.clearDataStrings = config.Bind(CATEGORY_GAME_STATES, "ClearDataStrings", false, new ConfigDescription("Reset a majority of the state of the world. Prologue status and Iris presence are maintained.", null, new ConfigurationManagerAttributes
+        {
+            Order = -1,
+            CustomDrawer = Config.CreateButtonDrawer("Clear", (entry) => {
+                DataStrings.ClearDataStrings();
+            })
+        }));
+        this.prologue = config.Bind(CATEGORY_GAME_STATES, "Prologue", false, new ConfigDescription("Enable or disable the prologue", null, new ConfigurationManagerAttributes() { Order = -2 }));
+        this.prologue.SettingChanged += (o, e) => DataStrings.SetPrologue(this.prologue.Value);
+        this.iris = config.Bind(CATEGORY_GAME_STATES, "Iris", true, new ConfigDescription("Enable or disable Iris", null, new ConfigurationManagerAttributes() { Order = -3 }));
+        this.iris.SettingChanged += (o, e) => DataStrings.SetIris(this.iris.Value);
 
         this.teleportToTerminal = config.Bind(CATEGORY_LOCATION, "Teleport to last terminal", KeyCode.None, "Use this input to teleport the player to their last terminal or checkpoint");
         this.reloadRoom = config.Bind(CATEGORY_LOCATION, "Reload current room", KeyCode.None, "Use this input to reload the current room. Works well with the current save states");
