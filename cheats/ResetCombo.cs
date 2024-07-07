@@ -21,7 +21,8 @@ public class ResetCombo
 
     public void RemoveAllCombo()
     {
-        this.comboBar.AddComboValue(-10000f);
+        this.comboBar.comboValue = 1f;
+        this.comboBar.UpdateComboBar();
     }
 
     [HarmonyPatch(typeof(ComboBar), nameof(ComboBar.Start)), HarmonyPostfix]
