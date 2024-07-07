@@ -74,7 +74,7 @@
     <Compile Include="cheats\InfiniteFishing.cs" />
     <Compile Include="cheats\QuickSaves.cs" />
     <Compile Include="cheats\ReenterScene.cs" />
-    <Compile Include="cheats\ResetCombo.cs" />
+    <Compile Include="cheats\ComboCheat.cs" />
     <Compile Include="cheats\SaveStates.cs" />
     <Compile Include="cheats\TimeCheat.cs" />
     <Compile Include="core\Config.cs" />

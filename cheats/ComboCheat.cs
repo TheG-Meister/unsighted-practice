@@ -9,26 +9,31 @@ using HarmonyLib;
 namespace dev.gmeister.unsighted.practice.cheats;
 
 [Harmony]
-public class ResetCombo
+public class ComboCheat
 {
 
     private ComboBar comboBar;
 
-    public ResetCombo(ComboBar comboBar)
+    public ComboCheat(ComboBar comboBar)
     {
         this.comboBar = comboBar;
     }
 
     public void RemoveAllCombo()
     {
-        this.comboBar.comboValue = 1f;
+        this.SetCombo(1f);
+    }
+
+    public void SetCombo(float value)
+    {
+        this.comboBar.comboValue = value;
         this.comboBar.UpdateComboBar();
     }
 
     [HarmonyPatch(typeof(ComboBar), nameof(ComboBar.Start)), HarmonyPostfix]
     public static void AfterComboBarStart(ComboBar __instance)
     {
-        Plugin.Instance.resetCombo = new ResetCombo(__instance);
+        Plugin.Instance.resetCombo = new ComboCheat(__instance);
     }
 
 }

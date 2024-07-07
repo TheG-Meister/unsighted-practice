@@ -21,7 +21,7 @@ public class Plugin : BaseUnityPlugin
     public Config config;
     public Harmony harmony;
 
-    public ResetCombo resetCombo;
+    public ComboCheat resetCombo;
     public QuickSaves quickSaves;
     public SaveStates states;
     public TimeCheat timeCheat;
