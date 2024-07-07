@@ -54,6 +54,8 @@ public class ReenterScene
                 {
                     ScreenTransition.lastSceneName = sceneChangeData.lastScene;
                     ScreenTransition.currentDoorName = sceneChangeData.transitionObject;
+                    ScreenTransition.direction = sceneChangeData.screenTransitionDirection;
+                    ScreenTransition.directionPlayerCamerFrom = Helpers.Get8AxisDirection(sceneChangeData.screenTransitionPlayerDirection);
                     ScreenTransition.playerTransitioningScreens = true;
                 }
                 else if (sceneChangeData.transitionType == typeof(SceneChangeLadder)) SceneChangeLadder.currentLadder = sceneChangeData.transitionObject;
@@ -73,7 +75,11 @@ public class ReenterScene
     {
         string scene = nextSceneName;
 
-        if (ScreenTransition.playerTransitioningScreens) sceneChangeData = new(scene, typeof(ScreenTransition), ScreenTransition.currentDoorName, ScreenTransition.lastSceneName);
+
+        if (ScreenTransition.playerTransitioningScreens)
+        {
+            sceneChangeData = new(scene, typeof(ScreenTransition), ScreenTransition.currentDoorName, ScreenTransition.lastSceneName, ScreenTransition.direction, Helpers.AxisDirectionToVector3(ScreenTransition.directionPlayerCamerFrom));
+        }
         else if (HoleTeleporter.fallingDownOnHole) sceneChangeData = new(scene, typeof(HoleTeleporter));
         else if (Elevator.ridingElevator) sceneChangeData = new(scene, typeof(Elevator));
         else if (CrystalTeleportExit.usingCrystalTeleport) sceneChangeData = new(scene, typeof(CrystalTeleportExit));
