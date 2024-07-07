@@ -44,8 +44,9 @@ public class State
         foreach (DeceasedEnemyInfo info in LevelController.deceasedEnemiesInfo) state.deceasedEnemiesInfo.Add(DeceasedEnemyInfos.Clone(info));
         foreach (DropInfo info in LevelController.dropInfo) state.dropInfo.Add(new SerializableDropInfo(info));
 
-        state.sceneChangeData = ReenterScene.sceneChangeData;
-        state.combo = PseudoSingleton<ComboBar>.instance.comboValue;
+        state.sceneChangeData = new SceneChangeData(ReenterScene.sceneChangeData);
+        if (Plugin.Instance.comboCheat != null) state.combo = Plugin.Instance.comboCheat.comboBar.comboValue;
+        else state.combo = -1;
 
         return state;
     }
@@ -61,11 +62,11 @@ public class State
         LevelController.deceasedEnemiesInfo = stateClone.deceasedEnemiesInfo;
         LevelController.dropInfo = stateClone.dropInfo.Select(info => info.ToDropInfo()).ToList();
 
-        if (stateClone.combo != -1f) Plugin.Instance.resetCombo.SetCombo(stateClone.combo);
+        if (stateClone.combo != -1f) Plugin.Instance.comboCheat.SetCombo(stateClone.combo);
 
         if (stateClone.sceneChangeData != null)
         {
-            ReenterScene.sceneChangeData = stateClone.sceneChangeData;
+            ReenterScene.sceneChangeData = new SceneChangeData(stateClone.sceneChangeData);
             ReenterScene.Reenter(!Plugin.Instance.config.quickReload.Value);
         }
     }

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace dev.gmeister.unsighted.practice.data;
 
+[Serializable]
 public class SceneChangeData
 {
 

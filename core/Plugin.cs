@@ -21,7 +21,7 @@ public class Plugin : BaseUnityPlugin
     public Config config;
     public Harmony harmony;
 
-    public ComboCheat resetCombo;
+    public ComboCheat comboCheat;
     public QuickSaves quickSaves;
     public SaveStates states;
     public TimeCheat timeCheat;
@@ -55,9 +55,9 @@ public class Plugin : BaseUnityPlugin
         if (Input.GetKeyDown(this.config.frameAdvanceKey.Value)) this.timeCheat.updates++;
         this.timeCheat.Apply();
 
-        if (this.resetCombo != null)
+        if (this.comboCheat != null)
         {
-            if (Input.GetKeyDown(this.config.resetComboKey.Value)) this.resetCombo.RemoveAllCombo();
+            if (Input.GetKeyDown(this.config.resetComboKey.Value)) this.comboCheat.RemoveAllCombo();
         }
 
         bool save = this.config.saveModifier.Value == KeyCode.None || Input.GetKey(this.config.saveModifier.Value);

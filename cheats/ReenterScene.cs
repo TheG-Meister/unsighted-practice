@@ -38,6 +38,11 @@ public class ReenterScene
 
     public static void Reenter(bool transition)
     {
+        Reenter(sceneChangeData, transition);
+    }
+
+    public static void Reenter(SceneChangeData sceneChangeData, bool transition)
+    {
         if (!PlayerInfo.cutscene && PlayerInfo.AtLeastOnePlayerAlive() && !gameTime.paused)
         {
             if (ScreenTransition.lastSceneName == null) ReenterScene.Respawn(transition);
@@ -45,15 +50,20 @@ public class ReenterScene
             {
                 PlayerInfo.cutscene = true;
 
-                if (sceneChangeData.transitionType == typeof(SceneChangeLadder)) SceneChangeLadder.currentLadder = sceneChangeData.transitionObject;
+                if (sceneChangeData.transitionType == typeof(ScreenTransition))
+                {
+                    ScreenTransition.lastSceneName = sceneChangeData.lastScene;
+                    ScreenTransition.currentDoorName = sceneChangeData.transitionObject;
+                    ScreenTransition.playerTransitioningScreens = true;
+                }
+                else if (sceneChangeData.transitionType == typeof(SceneChangeLadder)) SceneChangeLadder.currentLadder = sceneChangeData.transitionObject;
                 else if (sceneChangeData.transitionType == typeof(CraterTowerElevator)) CraterTowerElevator.currentElevator = sceneChangeData.transitionObject;
-                else if (sceneChangeData.transitionType == typeof(ScreenTransition)) ScreenTransition.playerTransitioningScreens = true;
                 else if (sceneChangeData.transitionType == typeof(HoleTeleporter)) HoleTeleporter.fallingDownOnHole = true;
                 else if (sceneChangeData.transitionType == typeof(Elevator)) Elevator.ridingElevator = true;
                 else if (sceneChangeData.transitionType == typeof(CrystalTeleportExit)) CrystalTeleportExit.usingCrystalTeleport = true;
 
                 MapManager mapManager = PseudoSingleton<MapManager>.instance;
-                mapManager.LoadRoom(SceneManager.GetActiveScene().name, transition);
+                mapManager.LoadRoom(sceneChangeData.scene, transition);
             }
         }
     }

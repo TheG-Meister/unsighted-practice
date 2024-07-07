@@ -12,7 +12,7 @@ namespace dev.gmeister.unsighted.practice.cheats;
 public class ComboCheat
 {
 
-    private ComboBar comboBar;
+    public ComboBar comboBar;
 
     public ComboCheat(ComboBar comboBar)
     {
@@ -33,7 +33,7 @@ public class ComboCheat
     [HarmonyPatch(typeof(ComboBar), nameof(ComboBar.Start)), HarmonyPostfix]
     public static void AfterComboBarStart(ComboBar __instance)
     {
-        Plugin.Instance.resetCombo = new ComboCheat(__instance);
+        Plugin.Instance.comboCheat = new ComboCheat(__instance);
     }
 
 }
