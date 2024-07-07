@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using dev.gmeister.unsighted.practice.cheats;
 using dev.gmeister.unsighted.practice.data;
+using dev.gmeister.unsighted.practice.core;
 
 namespace dev.gmeister.unsighted.practice.unsighted;
 
@@ -20,7 +21,8 @@ public class State
     public List<SerializableAcidTubeInfo> acidTubesInfo;
     public List<DeceasedEnemyInfo> deceasedEnemiesInfo;
     public List<SerializableDropInfo> dropInfo;
-    public SceneLocationData sceneEntryData;
+    public SceneChangeData sceneChangeData = null;
+    public float combo = -1f;
 
     public State() { }
 
@@ -38,20 +40,12 @@ public class State
 
         State state = new(data, new(), new(), new());
 
-        foreach (AcidTubeInfo tube in LevelController.acidTubesInfo)
-        {
-            state.acidTubesInfo.Add(new SerializableAcidTubeInfo(tube.sceneName, tube.objectName, tube.numberOfHits));
-        }
+        foreach (AcidTubeInfo tube in LevelController.acidTubesInfo) state.acidTubesInfo.Add(new SerializableAcidTubeInfo(tube));
+        foreach (DeceasedEnemyInfo info in LevelController.deceasedEnemiesInfo) state.deceasedEnemiesInfo.Add(DeceasedEnemyInfos.Clone(info));
+        foreach (DropInfo info in LevelController.dropInfo) state.dropInfo.Add(new SerializableDropInfo(info));
 
-        foreach (DeceasedEnemyInfo info in LevelController.deceasedEnemiesInfo)
-        {
-            state.deceasedEnemiesInfo.Add(DeceasedEnemyInfos.Clone(info));
-        }
-
-        foreach (DropInfo info in LevelController.dropInfo)
-        {
-            state.dropInfo.Add(new SerializableDropInfo(info));
-        }
+        state.sceneChangeData = ReenterScene.sceneChangeData;
+        state.combo = PseudoSingleton<ComboBar>.instance.comboValue;
 
         return state;
     }
@@ -66,6 +60,14 @@ public class State
         LevelController.acidTubesInfo = stateClone.acidTubesInfo.Select(info => info.ToAcidTubeInfo()).ToList();
         LevelController.deceasedEnemiesInfo = stateClone.deceasedEnemiesInfo;
         LevelController.dropInfo = stateClone.dropInfo.Select(info => info.ToDropInfo()).ToList();
+
+        if (stateClone.combo != -1f) Plugin.Instance.resetCombo.SetCombo(stateClone.combo);
+
+        if (stateClone.sceneChangeData != null)
+        {
+            ReenterScene.sceneChangeData = stateClone.sceneChangeData;
+            ReenterScene.Reenter(!Plugin.Instance.config.quickReload.Value);
+        }
     }
 
     public static void Write(string path, State state)

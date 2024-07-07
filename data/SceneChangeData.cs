@@ -27,4 +27,12 @@ public class SceneChangeData
         this.lastScene = lastScene;
     }
 
+    public SceneChangeData(SceneChangeData other)
+    {
+        this.scene = other.scene;
+        this.transitionType = other.transitionType;
+        this.transitionObject = other.transitionObject;
+        this.lastScene = other.lastScene;
+    }
+
 }

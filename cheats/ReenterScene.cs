@@ -22,15 +22,16 @@ public class ReenterScene
     {
         if (!PlayerInfo.cutscene && PlayerInfo.AtLeastOnePlayerAlive() && !gameTime.paused)
         {
+            PlayerData data = PseudoSingleton<Helpers>.instance.GetPlayerData();
             PlayerInfo.cutscene = true;
             LevelController.restartingPlayer = true;
-            if (PseudoSingleton<GlobalGameData>.instance.currentData.playerDataSlots[PseudoSingleton<GlobalGameData>.instance.loadedSlot].lastTerminalData == null || string.IsNullOrEmpty(PseudoSingleton<Helpers>.instance.GetPlayerData().lastTerminalData.sceneName))
+            if (data.lastTerminalData == null || string.IsNullOrEmpty(data.lastTerminalData.sceneName))
             {
-                PseudoSingleton<MapManager>.instance.LoadRoom(PseudoSingleton<Helpers>.instance.GetPlayerData().lastCheckpoint.sceneName, transition);
+                PseudoSingleton<MapManager>.instance.LoadRoom(data.lastCheckpoint.sceneName, transition);
             }
             else
             {
-                PseudoSingleton<MapManager>.instance.LoadRoom(PseudoSingleton<Helpers>.instance.GetPlayerData().lastTerminalData.sceneName, transition);
+                PseudoSingleton<MapManager>.instance.LoadRoom(data.lastTerminalData.sceneName, transition);
             }
         }
     }
