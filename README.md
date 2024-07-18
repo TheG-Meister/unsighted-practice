@@ -1,22 +1,24 @@
 # UNSIGHTED Practice Mod
 Unsighted Practice is a mod for 2021 indie metroidvania UNSIGHTED that provides cheats and tools to help speedrunners, glitch hunters and even casual players practice parts of the game. Features currently include:
 * A bountiful settings menu with key rebinding and toggles for all features, courtesy of [ConfigurationManager](https://github.com/BepInEx/BepInEx.ConfigurationManager)
-* A variety of cheats
+* Some simple cheats
     * Prevent cog depletion
     * Stop fishing spots being used up
     * Enable the in-built debug menu for even more cheats
-* A primitive save state system
-    * Save states record all data saved to the system, as well as some level data, but not player location
-    * All states are saved as a file on your computer, so they persist between game sessions and can be shared with other players
+* A reliable save state system
+    * Save states record everything from the player's equipment, health and location to world data, npc hearts and dead enemy locations
+    * All states are saved as a file on your computer so they persist between game sessions and can be shared with other players
+    * Loading a state will put the player back at the entrance to the room they saved in with only a minority of gameplay features not preserved
     * Named states can be saved and loaded via a menu
     * Quicksaves can be saved and loaded using hotkeys
 * Hotkeys for resetting combo, reloading the current room and teleporting to the last terminal
+* Some basic tools for save game manipulation
 
 ## Installation
 
-This setup guide is for v0.2.0.
+This setup guide is for v0.3.0.
 
-__Note__ - if you are using the Xbox Gamepass version this tutorial may not work for you. Contact The G-Meister via the contact methods at the bottom of the page as there may be a way to get it to work.
+__Note__ - if you are using the Xbox Gamepass version this tutorial may not work for you. Contact the g-meister via the contact methods at the bottom of the page as there may be a way to get it to work.
 
 ### BepInEx
 
@@ -36,7 +38,7 @@ From here on, all mods can be installed by downloading them from the links provi
 
 The following mods are required for Unsighted Practice to work smoothly:
 
-* [Unsighted Practice](https://github.com/TheG-Meister/unsighted-practice/releases/tag/v0.2.0) `unsighted-practice-v0.2.0.zip` - this mod
+* [Unsighted Practice](https://github.com/TheG-Meister/unsighted-practice/releases/tag/v0.3.0) `unsighted-practice-v0.3.0.zip` - this mod
 * [ConfigurationManager](https://github.com/BepInEx/BepInEx.ConfigurationManager/releases/tag/v18.0.1) `BepInEx.ConfigurationManager_v18.0.1.zip` - used to change mod options during gameplay
 
 #### Optional
@@ -59,7 +61,7 @@ The following mods aren't required, but may add some additional quality-of-life 
 
 ## Contact
 
-This mod is maintained by The G-Meister:
+This mod is maintained by the g-meister:
 * Discord - @the_g_meister
 * Email - [thegiemeister@gmail.com](mailto:thegiemeister@gmail.com)
 
