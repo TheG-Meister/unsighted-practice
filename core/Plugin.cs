@@ -51,7 +51,7 @@ public class Plugin : BaseUnityPlugin
 
     public void Update()
     {
-        if (Input.GetKeyDown(this.config.pauseKey.Value)) this.timeCheat.Toggle();
+        //if (Input.GetKeyDown(this.config.pauseKey.Value)) this.timeCheat.Toggle();
         //if (Input.GetKeyDown(this.config.frameAdvanceKey.Value)) this.timeCheat.updates++;
         this.timeCheat.Apply();
 
