@@ -101,7 +101,7 @@ public class ReenterScene
         {
             sceneChangeData = new(scene, typeof(CraterTowerElevator), CraterTowerElevator.currentElevator);
         }
-        else if ((sceneChangeData == null || sceneChangeData.scene != scene) && helpers != null && gameData != null)
+        else if (LevelController.restartingPlayer && helpers != null && gameData != null)
         {
             PlayerData data = helpers.GetPlayerData();
             if (data.lastTerminalData == null || string.IsNullOrEmpty(data.lastTerminalData.areaName))
