@@ -63,6 +63,7 @@ public class ReenterScene
                 else if (sceneChangeData.transitionType == typeof(HoleTeleporter)) HoleTeleporter.fallingDownOnHole = true;
                 else if (sceneChangeData.transitionType == typeof(Elevator)) Elevator.ridingElevator = true;
                 else if (sceneChangeData.transitionType == typeof(CrystalTeleportExit)) CrystalTeleportExit.usingCrystalTeleport = true;
+                else if (sceneChangeData.transitionType == typeof(Terminal) || sceneChangeData.transitionType == typeof(TemporaryCheckpointLocation)) LevelController.restartingPlayer = true; 
 
                 MapManager mapManager = PseudoSingleton<MapManager>.instance;
                 mapManager.LoadRoom(sceneChangeData.scene, transition);
@@ -74,7 +75,6 @@ public class ReenterScene
     public static void RecordLastTransitionTypeMapManager(string nextSceneName)
     {
         string scene = nextSceneName;
-
 
         if (ScreenTransition.playerTransitioningScreens)
         {
@@ -90,6 +90,8 @@ public class ReenterScene
     public static void RecordLastTransitionTypeSceneManager(string sceneName)
     {
         string scene = sceneName;
+        Helpers helpers = PseudoSingleton<Helpers>.instance;
+        GlobalGameData gameData = PseudoSingleton<GlobalGameData>.instance;
 
         if (!string.IsNullOrEmpty(SceneChangeLadder.currentLadder))
         {
@@ -98,6 +100,18 @@ public class ReenterScene
         else if (!string.IsNullOrEmpty(CraterTowerElevator.currentElevator))
         {
             sceneChangeData = new(scene, typeof(CraterTowerElevator), CraterTowerElevator.currentElevator);
+        }
+        else if ((sceneChangeData == null || sceneChangeData.scene != scene) && helpers != null && gameData != null)
+        {
+            PlayerData data = helpers.GetPlayerData();
+            if (data.lastTerminalData == null || string.IsNullOrEmpty(data.lastTerminalData.areaName))
+            {
+                sceneChangeData = new(scene, typeof(TemporaryCheckpointLocation));
+            }
+            else
+            {
+                sceneChangeData = new(scene, typeof(Terminal));
+            }
         }
     }
 
