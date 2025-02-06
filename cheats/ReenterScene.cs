@@ -45,7 +45,7 @@ public class ReenterScene
     {
         if (!PlayerInfo.cutscene && PlayerInfo.AtLeastOnePlayerAlive() && !gameTime.paused)
         {
-            if (ScreenTransition.lastSceneName == null) ReenterScene.Respawn(transition);
+            if (sceneChangeData == null) ReenterScene.Respawn(transition);
             else
             {
                 PlayerInfo.cutscene = true;
@@ -83,7 +83,7 @@ public class ReenterScene
         else if (HoleTeleporter.fallingDownOnHole) sceneChangeData = new(scene, typeof(HoleTeleporter));
         else if (Elevator.ridingElevator) sceneChangeData = new(scene, typeof(Elevator));
         else if (CrystalTeleportExit.usingCrystalTeleport) sceneChangeData = new(scene, typeof(CrystalTeleportExit));
-        else sceneChangeData = null;
+        else sceneChangeData = new(scene, null);
     }
 
     [HarmonyPatch(typeof(SceneManager), "LoadSceneAsyncNameIndexInternal"), HarmonyPrefix]
