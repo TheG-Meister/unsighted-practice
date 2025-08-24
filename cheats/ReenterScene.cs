@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using static dev.gmeister.unsighted.practice.data.SceneChangeData;
 
 namespace dev.gmeister.unsighted.practice.cheats;
 
@@ -57,6 +58,35 @@ public class ReenterScene
                     ScreenTransition.direction = sceneChangeData.screenTransitionDirection;
                     ScreenTransition.directionPlayerCamerFrom = Helpers.Get8AxisDirection(sceneChangeData.screenTransitionPlayerDirection);
                     ScreenTransition.playerTransitioningScreens = true;
+
+                    if (sceneChangeData.playerSceneChangeData != null)
+                    {
+                        if (sceneChangeData.playerSceneChangeData.Count > 0)
+                        {
+                            PlayerSceneChangeData playerData = sceneChangeData.playerSceneChangeData[0];
+                            ScreenTransition.player1Running = playerData.running;
+                            ScreenTransition.player1StartedRunningWithDoubleTap = playerData.runningWithDoubleTap;
+                            ScreenTransition.player1Spinner = playerData.spinner;
+                            ScreenTransition.player1Mecha = playerData.mecha;
+                        }
+                        if (sceneChangeData.playerSceneChangeData.Count > 1)
+                        {
+                            PlayerSceneChangeData playerData = sceneChangeData.playerSceneChangeData[1];
+                            ScreenTransition.player2Running = playerData.running;
+                            ScreenTransition.player2StartedRunningWithDoubleTap = playerData.runningWithDoubleTap;
+                            ScreenTransition.player2Spinner = playerData.spinner;
+                            ScreenTransition.player2Mecha = playerData.mecha;
+                        }
+
+                        foreach (PlayerSceneChangeData data in sceneChangeData.playerSceneChangeData)
+                        {
+                            if (data.mecha)
+                            {
+                                MechaController.mechaTransitioningScreens = true;
+                                break;
+                            }
+                        }
+                    }
                 }
                 else if (sceneChangeData.transitionType == typeof(SceneChangeLadder)) SceneChangeLadder.currentLadder = sceneChangeData.transitionObject;
                 else if (sceneChangeData.transitionType == typeof(CraterTowerElevator)) CraterTowerElevator.currentElevator = sceneChangeData.transitionObject;
@@ -78,7 +108,15 @@ public class ReenterScene
 
         if (ScreenTransition.playerTransitioningScreens)
         {
-            sceneChangeData = new(scene, typeof(ScreenTransition), ScreenTransition.currentDoorName, ScreenTransition.lastSceneName, ScreenTransition.direction, Helpers.AxisDirectionToVector3(ScreenTransition.directionPlayerCamerFrom));
+            sceneChangeData = new(
+                scene,
+                typeof(ScreenTransition),
+                ScreenTransition.currentDoorName,
+                ScreenTransition.lastSceneName,
+                ScreenTransition.direction,
+                Helpers.AxisDirectionToVector3(ScreenTransition.directionPlayerCamerFrom),
+                new PlayerSceneChangeData(ScreenTransition.player1Running, ScreenTransition.player1StartedRunningWithDoubleTap, ScreenTransition.player1Spinner, ScreenTransition.player1Mecha),
+                new PlayerSceneChangeData(ScreenTransition.player2Running, ScreenTransition.player2StartedRunningWithDoubleTap, ScreenTransition.player2Spinner, ScreenTransition.player2Mecha));
         }
         else if (HoleTeleporter.fallingDownOnHole) sceneChangeData = new(scene, typeof(HoleTeleporter));
         else if (Elevator.ridingElevator) sceneChangeData = new(scene, typeof(Elevator));
