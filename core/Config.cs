@@ -23,6 +23,7 @@ public class Config
     public ConfigEntry<bool> infiniteCogs;
     public ConfigEntry<bool> infiniteFishing;
     public ConfigEntry<bool> debugMode;
+    public ConfigEntry<bool> unstuck;
 
     public const string CATEGORY_COMBO = "Combo";
     public ConfigEntry<KeyCode> resetComboKey;
@@ -63,6 +64,14 @@ public class Config
         this.infiniteCogs = config.Bind(CATEGORY_CHEATS, "Infinite cogs", false, "Prevents cogs from decreasing in use or timing out");
         this.infiniteFishing = config.Bind(CATEGORY_CHEATS, "Infinite fishing", false, "Prevents fishing spots from being consumed");
         this.debugMode = config.Bind(CATEGORY_CHEATS, "Debug mode", false, "Enables debug mode, which allows starting the game from different areas as well as an in-game cheats menu, accessible from the options pace");
+        this.unstuck = config.Bind(CATEGORY_CHEATS, "Unstuck", false, new ConfigDescription("Press to return control to the player and set the game speed back to normal. While it's considered a bug if Alma is unresponsive after a scene reload or loading a state, this button will at least save you reopening the game.", null, new ConfigurationManagerAttributes
+        {
+            Order = -4,
+            CustomDrawer = Config.CreateButtonDrawer("Unstuck", (entry) => {
+                Time.timeScale = PseudoSingleton<gameTime>.instance.defaultTimeScale;
+                PlayerInfo.cutscene = false;
+            })
+        }));
 
         this.resetComboKey = config.Bind(CATEGORY_COMBO, "Reset combo key", KeyCode.None, "Use this input to reset the combo bar to a 1x modifier");
 
