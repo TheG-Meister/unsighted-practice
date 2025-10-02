@@ -90,6 +90,7 @@ public class Config
             CustomDrawer = Config.CreateButtonDrawer("Create", (entry) => {
                 this.states.CreateAndWrite(this.saveStateName.Value);
                 this.UpdateStatesList();
+                //Plugin.Instance.GetComponent<ConfigurationM>
             })
         }));
         this.UpdateStatesList();
