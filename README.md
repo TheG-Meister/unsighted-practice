@@ -13,10 +13,11 @@ Unsighted Practice is a mod for 2021 indie metroidvania UNSIGHTED that provides 
     * Quicksaves can be saved and loaded using hotkeys
 * Hotkeys for resetting combo, reloading the current room and teleporting to the last terminal
 * Some basic tools for save game manipulation
+* A failsafe button in case you get stuck
 
 ## Installation
 
-This setup guide is for v0.3.1.
+This setup guide is for v0.3.2.
 
 __Note__ - if you are using the Xbox Gamepass version this tutorial may not work for you. Contact the g-meister via the contact methods at the bottom of the page as there may be a way to get it to work.
 
@@ -28,7 +29,7 @@ If you already have BepInEx v5 installed, skip this section.
 * Head to the [BepInEx v5.4.21 release page](https://github.com/BepInEx/BepInEx/releases/tag/v5.4.21) and download `BepInEx_x64_5.4.21.0.zip`
 * Extract the contents of this zip __in place__ to your game's root directory. If you've installed the game through Steam, this is usually `C:\Program Files (x86)\Steam\steamapps\common\Unsighted`. If unzipping creates a folder with the same name as the `.zip` file, move the contents of this folder (should just be a `BepInEx` folder) into the game's root directory
 * Restart your computer
-* Run the game once to generate configuration files. You'll know this has succeeded if the `BepInEx/plugins` folder exists in your game's directory
+* Run the game once to generate configuration files. You'll know this has succeeded if the `BepInEx/plugins/` folder exists in your game's directory
 
 ### Mods
 
@@ -38,7 +39,7 @@ From here on, all mods can be installed by downloading them from the links provi
 
 The following mods are required for Unsighted Practice to work smoothly:
 
-* [Unsighted Practice](https://github.com/TheG-Meister/unsighted-practice/releases/tag/v0.3.1) `unsighted-practice-v0.3.1.zip` - this mod
+* [Unsighted Practice](https://github.com/TheG-Meister/unsighted-practice/releases/tag/v0.3.2) `unsighted-practice-v0.3.2.zip` - this mod
 * [ConfigurationManager](https://github.com/BepInEx/BepInEx.ConfigurationManager/releases/tag/v18.0.1) `BepInEx.ConfigurationManager_v18.0.1.zip` - used to change mod options during gameplay
 
 #### Optional
