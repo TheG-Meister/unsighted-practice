@@ -92,6 +92,7 @@ public class ReenterScene
                 else if (sceneChangeData.transitionType == typeof(CraterTowerElevator)) CraterTowerElevator.currentElevator = sceneChangeData.transitionObject;
                 else if (sceneChangeData.transitionType == typeof(HoleTeleporter)) HoleTeleporter.fallingDownOnHole = true;
                 else if (sceneChangeData.transitionType == typeof(Elevator)) Elevator.ridingElevator = true;
+                else if (sceneChangeData.transitionType == typeof(EagleBossCrystal)) EagleBossCrystal.teleportedToFlashback = true;
                 else if (sceneChangeData.transitionType == typeof(CrystalTeleportExit)) CrystalTeleportExit.usingCrystalTeleport = true;
                 else /*if (sceneChangeData.transitionType == typeof(Terminal) || sceneChangeData.transitionType == typeof(TemporaryCheckpointLocation))*/ LevelController.restartingPlayer = true; 
 
@@ -120,6 +121,7 @@ public class ReenterScene
         }
         else if (HoleTeleporter.fallingDownOnHole) sceneChangeData = new(scene, typeof(HoleTeleporter));
         else if (Elevator.ridingElevator) sceneChangeData = new(scene, typeof(Elevator));
+        else if (EagleBossCrystal.teleportedToFlashback) sceneChangeData = new(scene, typeof(EagleBossCrystal));
         else if (CrystalTeleportExit.usingCrystalTeleport) sceneChangeData = new(scene, typeof(CrystalTeleportExit));
         else sceneChangeData = new(scene, null);
     }
