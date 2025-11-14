@@ -94,7 +94,7 @@ public class ReenterScene
                 else if (sceneChangeData.transitionType == typeof(Elevator)) Elevator.ridingElevator = true;
                 else if (sceneChangeData.transitionType == typeof(EagleBossCrystal)) EagleBossCrystal.teleportedToFlashback = true;
                 else if (sceneChangeData.transitionType == typeof(CrystalTeleportExit)) CrystalTeleportExit.usingCrystalTeleport = true;
-                else /*if (sceneChangeData.transitionType == typeof(Terminal) || sceneChangeData.transitionType == typeof(TemporaryCheckpointLocation))*/ LevelController.restartingPlayer = true; 
+                else if (sceneChangeData.transitionType == typeof(Terminal) || sceneChangeData.transitionType == typeof(TemporaryCheckpointLocation)) LevelController.restartingPlayer = true; 
 
                 MapManager mapManager = PseudoSingleton<MapManager>.instance;
                 mapManager.LoadRoom(sceneChangeData.scene, transition);
